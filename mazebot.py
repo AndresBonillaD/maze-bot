@@ -40,5 +40,5 @@ def mouse_pos():
 # find_entity()
 
 # toma un screenshot de la pantalla (x, y, width, Higth)
-map = pyautogui.screenshot(region=(180, 80, 1000, 500))
-map.save(r'C:\Users\andre\Documents\maze-bot\mapscreenshot.png')
+map = pyautogui.screenshot(region=(53, 111, 893, 398))
+map.save(r'E:\Unal\16 Semestre\Sistemas Inteligentes\maze-bot\mapscreenshot.png')
