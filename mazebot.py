@@ -5,26 +5,40 @@ import keyboard
 import random
 import win32api, win32con
 
+# funciones
 
 def click(x,y):
     win32api.SetCursorPos((x,y))
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN,0,0)
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP,0,0)
 
-# toma un screenshot de la pantalla (x, y, width, Higth)
-map = pyautogui.screenshot(region=(125, 79, 800, 400))
-map.save(r'C:\Users\andre\Documents\maze-bot\mapscreenshot.png')
-
 # locateOnScreen busca la imagen en la pantalla
-print('press q to stop.')
-while keyboard.is_pressed('q') == False:
-    if pyautogui.locateOnScreen('car.png') != None:
-        print('I see it!!!')
-        time.sleep(0.5)
-    else:
-        print('I cant see shit')
-        time.sleep(0.5)
+def find_entity():
+    print('press q to stop.')
+    while keyboard.is_pressed('q') == False:
+        if pyautogui.locateOnScreen('meta.png', region=(180, 80, 1000, 500), grayscale=True) != None:
+            print('I see it!!!')
+            time.sleep(1)
+        else:
+            print('I cant see shit')
+            time.sleep(1)
 
-#while keyboard.is_pressed('q') == False:
-#    map = pyautogui.screenshot(region=(125, 79, 800, 400))
-#    map.save(r'C:\Users\andre\Documents\maze-bot\mapscreenshot.png')
+def mouse_pos():
+    # muestra ela posicion del mose hasta oprimir q
+    while keyboard.is_pressed('q') == False:
+        pyautogui.displayMousePosition()
+
+
+
+
+
+
+
+# - Main/Driver code -
+
+# pruebas para encontrar en pantalla una imagen completa
+# find_entity()
+
+# toma un screenshot de la pantalla (x, y, width, Higth)
+map = pyautogui.screenshot(region=(180, 80, 1000, 500))
+map.save(r'C:\Users\andre\Documents\maze-bot\mapscreenshot.png')
