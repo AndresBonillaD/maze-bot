@@ -4,7 +4,7 @@ import time
 import keyboard
 import random
 import win32api, win32con
-import numpy
+import numpy as np
 
 # funciones
 
@@ -29,12 +29,15 @@ def mouse_pos():
     while keyboard.is_pressed('q') == False:
         pyautogui.displayMousePosition()
 
+# prinsipal forma depercibir el ambiente
 def screenshot_search():
     pic = pyautogui.screenshot(region=(180, 80, 1000, 500))
     width, height = pic.size
-    width, height = int(width/50), int(height/25)
     print('w, h:',width, height)
-    map_matrix = numpy.zeros((width, height), numpy.int8)
+    width = int(width/25)
+    height = int(height/50)
+    print('w, h:',width, height)
+    map_matrix = np.zeros((height, width), np.int8)
 
     # usar q para detener el loop
     while keyboard.is_pressed('q') == False:
@@ -45,39 +48,38 @@ def screenshot_search():
 
         pic = pyautogui.screenshot(region=(180, 80, 1000, 500))
         width, height = pic.size
-        # buscar en la imagenes cada 5 pixeles
+        # buscar en la imagenes
         i=0
-        for x in range (0, width, 50): 
+        for x in range (0, height, 50):
             j=0
-            for y in range(0, height, 25):
-                
-                r, g, b = pic.getpixel((x,y))
+            for y in range(0, width, 25):                
+                r, g, b = pic.getpixel((y,x))
 
                 # r = 102 color gris camino
                 # r = 136 color gris camino
 
-
                 if r == 102:
-                    print('---- CAMINO ----')
+                    #print('---- CAMINO ----')
+                    
                     map_matrix[i][j] = 1
                 if r in range(50, 59) :
-                    print('---- BUHO ----')
+                    #print('---- BUHO ----')y
                     map_matrix[i][j] = 3
                     #time.sleep(0.5)
                 if r == 136 :
-                    print('---- CARRO ----')
-                    map_matrix[i][j] = 77
+                    #print('---- CARRO ----')
+                    map_matrix[i][j] = 7
                     #time.sleep(0.5)
-                else:
-                    print('---- | ----')
-                    print(i,j)
-                    map_matrix[i][j] = 9
-                
+
                 j+=1
 
             i+=1
 
         print(map_matrix)
+        file = open('outfile.txt', 'w+')
+        content = str(map_matrix)
+        file.write(content)
+        file.close()
     return map_matrix
 
 
